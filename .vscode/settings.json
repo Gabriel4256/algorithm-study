@@ -4,6 +4,8 @@
         "random": "cpp",
         "limits": "cpp",
         "valarray": "cpp",
-        "algorithm": "cpp"
-    }
+        "algorithm": "cpp",
+        "tuple": "cpp"
+    },
+    "python.formatting.provider": "black"
 }
