@@ -38,6 +38,7 @@ struct DisjointSet{
     }
 };
 
+
 int solve(int N, vector<pair<int, pair<int,int>>> &edges){
     sort(edges.begin(),edges.end());
     int prev_min = -1;
@@ -64,6 +65,28 @@ int solve(int N, vector<pair<int, pair<int,int>>> &edges){
     return ret;
 }
 
+// 훓고 지나가는 알고리즘
+int solve2(int N, vector<pair<int, pair<int,int>>> &edges){
+    sort(edges.begin(), edges.end());
+    int ret = 1e9;
+    int lo = 0, hi = 0;
+    while(true){
+        DisjointSet DJS(N);
+        for(int i=lo; i<hi + 1; i++){
+            DJS.merge(edges[i].second.first, edges[i].second.second);
+        }
+        if(DJS.find(0) == DJS.find(N-1)){
+            ret = min(ret, edges[hi].first - edges[lo].first);
+            lo++;
+        }
+        else{
+            hi++;
+            if(hi == edges.size()) break;
+        }
+    }
+    return ret;
+}
+
 int main(){
     int i,j,k, N, M;
     vector<pair<int, pair<int,int>>> edges;
@@ -75,6 +98,6 @@ int main(){
             cin >> u >> v >> w;
             edges.push_back(make_pair(w, make_pair(u,v)));
         }
-        cout << solve(N, edges) << endl;
+        cout << solve2(N, edges) << endl;
     }
 }
